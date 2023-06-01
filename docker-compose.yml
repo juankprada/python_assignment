@@ -1,0 +1,30 @@
+version: '3'
+services:
+  financial_app:
+    build:
+      context: .
+    environment:
+      - DATABASE_PORT
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER
+      - POSTGRES_DB
+      - POSTGRES_HOST
+      - POSTGRES_HOSTNAME
+      - API_KEY
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    ports:
+      - '6500:5432'
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+volumes:
+  postgres-db:
