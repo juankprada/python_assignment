@@ -1,5 +1,7 @@
 psycopg2-binary
 requests
-fastapi>=0.68.0,<0.69.0
-pydantic>=1.8.0,<2.0.0
-uvicorn>=0.15.0,<0.16.0
+fastapi>=0.94.1
+uvicorn>=0.21.1
+pydantic
+pydantic[dotenv]
+SQLAlchemy

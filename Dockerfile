@@ -1,22 +1,18 @@
-FROM python:3.11
+FROM python:3.11-alpine
 
-# Set the current working dir to "/code"
-WORKDIR /code
+RUN addgroup -g 1001 -S appuser && adduser -u 1001 -S appuser -G appuser
 
-# First copy requirements.txt
-COPY ./requirements.txt /code/requirements.txt
+USER appuser
+COPY --chown=1001:1001 . /home/appuser/app/
+WORKDIR /home/appuser/app/
 
-# Install dependencies.
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+ENV PATH="/home/appuser/.local/bin:$PATH"
 
-# copy code from the root directory
-COPY ./*.py /code/
-COPY ./schema.sql /code/schema.sql
-# run get_raw_data.py
-CMD ["python", "get_raw_data.py"]
+#Update PIP and install dependencies
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-# Copy API related code
-COPY ./financial /code/app
+WORKDIR /home/appuser/app/financial/
 
-# Run FastAPI app
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000"]
+EXPOSE 5000
+#CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["ping", "db"]

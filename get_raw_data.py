@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     API_KEY: str
 
     class Config:
-        env_file = "./.env"
+        env_file = ".env"
 
 
 settings = Settings()
@@ -100,7 +100,6 @@ def populate_database(db: psycopg2.extensions.connection, symbols: list[str]):
 
         if response.status_code == 200:
             daily_series = response.json()["Time Series (Daily)"]
-
             # Filter entries according to date range
             filtered_daily_series = dict(filter(lambda elem: ( date_start <= datetime.strptime(elem[0], '%Y-%m-%d').date() < date_end), daily_series.items()))
 
@@ -155,7 +154,7 @@ def setup_db_connection() -> psycopg2.extensions.connection:
     '''
 
     connection = None
-
+    logging.error(f'Connecting to {settings.POSTGRES_HOSTNAME}, {settings.DATABASE_PORT}, {settings.POSTGRES_USER}')
     try:
         connection = psycopg2.connect(
             host=settings.POSTGRES_HOSTNAME,
@@ -179,7 +178,5 @@ if __name__ == "__main__":
     if connection is None:
         logging.error("Could not connect to the database. Shutting down.")
         sys.exit(1)
-
-    setup_db_table(connection)
 
     populate_database(connection, ["IBM", "AAPL"])
