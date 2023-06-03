@@ -23,7 +23,6 @@ def base_query(db: Session, symbol: str, start_date:date, end_date: date):
 def count_financial_data(db: Session, symbol: str, start_date: date, end_date: date )-> int :
     return base_query(db, symbol, start_date, end_date ).count()
 
-
 def get_financial_data(db: Session, offset:int = 0, limit: int = 5):
     return db.query(models.FinancialData).order_by(models.FinancialData.date).slice(offset, limit ).limit(limit).all()
 

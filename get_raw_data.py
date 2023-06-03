@@ -85,7 +85,7 @@ def populate_database(db: psycopg2.extensions.connection, symbols: list[str]):
 
     # Define the date range used to process data
     date_end = date.today()
-    last_week = date_end - timedelta(weeks=2)
+    last_week = date_end - timedelta(weeks=100)
     date_start = last_week - timedelta(days=last_week.weekday())
 
 
