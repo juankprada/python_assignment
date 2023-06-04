@@ -72,7 +72,7 @@ url --location 'http://localhost:5000/api/statistics?start_date=2023-05-01&end_d
 
 ## Tech Stack
 
-#### Software versions
+### Software versions
 
 * Python 3.10
 * Docker 20.10.23-ce, build 6051f1429
@@ -80,7 +80,7 @@ url --location 'http://localhost:5000/api/statistics?start_date=2023-05-01&end_d
 * PostgreSQL 15.3-alpine (as provided by Postgres official Dockerhub image)
 
 
-#### Python Dependencies
+### Python Dependencies
 
 * pytest: Used for unit and integration tests
 * psycopg2-binary: Used for DB connectivity
@@ -93,6 +93,7 @@ url --location 'http://localhost:5000/api/statistics?start_date=2023-05-01&end_d
 * httpx: Needed for Integraton tests.
 
 **Regarding get_raw_data.py Script**
+
 The script was first part to be developed. It was intended to be simple and
 have few dependncies and that is why `psycopg2` was used to handle the interaction with the Posgres Database.
 
@@ -125,7 +126,7 @@ An extra perfomance gain can be obtained by leveraging the calculation of the st
 instead of doing it in code.
 
 
-#### Tests
+### Tests
 
 Some unit tests and integration tests were made for this api and it can be executed with the following command
 
