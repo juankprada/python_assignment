@@ -40,6 +40,9 @@ Execute the following command:
 `docker-compose up`
 
 After it finishes running both the database and the API service should be running.
+The schema of the database is handled directly by Postrgress on the Docker Image. 
+The `schema.sql` file is mapped as volume in the Docker image to the path `/docker-entrypoint-initdb.d/`.
+Postgres uses this path and executes all scripts within it once.
 
 
 ### Prepare the initial data
