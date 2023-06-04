@@ -85,7 +85,7 @@ def populate_database(db: psycopg2.extensions.connection, symbols: list[str]):
 
     # Define the date range used to process data
     date_end = date.today()
-    last_week = date_end - timedelta(weeks=100)
+    last_week = date_end - timedelta(weeks=2)
     date_start = last_week - timedelta(days=last_week.weekday())
 
 
@@ -106,36 +106,9 @@ def populate_database(db: psycopg2.extensions.connection, symbols: list[str]):
             persist_data(db, symbol, filtered_daily_series)
 
         else:
-            #TODO: hanle this error better
-            #NOTE: This API doesn't handle HTTPS codes correctly. Even when errors ocurr like passing no API KEY the response status code is 200
-            # Currently I see no way to handle API error responses other than by manually validating the data.
+            #TODO: handle this error better
+            #NOTE: This API doesn't handle HTTPS codes correctly. Even when errors ocur like passing no API KEY the response status code is 200
             logging.warning("API call failed with HTTP status {0}", response.status_code)
-
-
-
-def setup_db_table(db: psycopg2.extensions.connection):
-    '''
-    Executes the contents of the file 'schema.sql'. The logic and management of the schema
-    is leveraged to the SQL script.
-
-    Arguments:
-       db (psycopg2.extensions.connection): DB connection handler.
-    '''
-
-    logging.debug("Creating database table based on schema file")
-    with db.cursor() as cursor:
-        try:
-            with open("schema.sql") as schema_file:
-                cursor.execute(schema_file.read())
-                db.commit()
-        except Exception as e:
-            logging.error("Error creating schema!")
-            logging.error("The process cannot continue without database schema.")
-            logging.error("Shutting down.")
-            logging.error(e)
-            db.close()
-            sys.exit(1)
-
 
 
 def setup_db_connection() -> psycopg2.extensions.connection:
