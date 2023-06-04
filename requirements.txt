@@ -1,3 +1,4 @@
+pytest
 psycopg2-binary
 requests
 fastapi>=0.94.1
@@ -5,3 +6,4 @@ uvicorn>=0.21.1
 pydantic
 pydantic[dotenv]
 SQLAlchemy
+httpx

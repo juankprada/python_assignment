@@ -11,8 +11,7 @@ ENV PATH="/home/appuser/.local/bin:$PATH"
 #Update PIP and install dependencies
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-WORKDIR /home/appuser/app/financial/
+
 
 EXPOSE 5000
-#CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
-#CMD ["ping", "db"]
+CMD ["uvicorn", "financial.main:app", "--host", "0.0.0.0", "--port", "5000"]
